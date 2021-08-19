@@ -1,0 +1,44 @@
+## Docker commands used to build the application 
+
+docker build -t techtrends .
+
+## Docker commands used to run the application
+
+docker run -d -p 7111:3111 techtrends 
+
+## Docker commands used to get the application logs
+
+docker logs 15a784923d71
+
+## Logs from the container running the TechTrends application
+
+* Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+2021-08-19 14:13:34,980  * Running on http://0.0.0.0:3111/ (Press CTRL+C to quit)
+2021-08-19 14:13:34,982  * Restarting with stat
+2021-08-19 14:13:35,090  * Debugger is active!
+2021-08-19 14:13:35,091  * Debugger PIN: 305-925-653
+2021-08-19 14:14:14,256 Home page request retrieved successfull
+2021-08-19 14:14:14,272 172.17.0.1 - - [19/Aug/2021 14:14:14] "GET / HTTP/1.1" 200 -
+2021-08-19 14:14:20,507 Article "2020 CNCF Annual Report" retrieved!
+2021-08-19 14:14:20,511 172.17.0.1 - - [19/Aug/2021 14:14:20] "GET /1 HTTP/1.1" 200 -
+2021-08-19 14:14:23,001 About page request retrieved successfull
+2021-08-19 14:14:23,004 172.17.0.1 - - [19/Aug/2021 14:14:23] "GET /about HTTP/1.1" 200 -
+2021-08-19 14:14:24,281 Create page request successfull
+2021-08-19 14:14:24,286 172.17.0.1 - - [19/Aug/2021 14:14:24] "GET /create HTTP/1.1" 200 -
+2021-08-19 14:14:39,931 A new article "Test Title" is created!
+2021-08-19 14:14:39,932 172.17.0.1 - - [19/Aug/2021 14:14:39] "POST /create HTTP/1.1" 302 -
+2021-08-19 14:14:39,946 Home page request retrieved successfull
+2021-08-19 14:14:39,947 172.17.0.1 - - [19/Aug/2021 14:14:39] "GET / HTTP/1.1" 200 -
+2021-08-19 14:14:46,164 Article "Test Title" retrieved!
+2021-08-19 14:14:46,165 172.17.0.1 - - [19/Aug/2021 14:14:46] "GET /7 HTTP/1.1" 200 -
+2021-08-19 14:15:11,462 172.17.0.1 - - [19/Aug/2021 14:15:11] "GET //healthz HTTP/1.1" 308 -
+2021-08-19 14:15:11,488 Home page request retrieved successfull
+2021-08-19 14:15:11,489 172.17.0.1 - - [19/Aug/2021 14:15:11] "GET / HTTP/1.1" 200 -
+2021-08-19 14:15:19,968 Application health request successfull
+2021-08-19 14:15:19,969 172.17.0.1 - - [19/Aug/2021 14:15:19] "GET /healthz HTTP/1.1" 200 -
+2021-08-19 14:15:47,083 Metrics request successfull
+2021-08-19 14:15:47,084 172.17.0.1 - - [19/Aug/2021 14:15:47] "GET /metrics HTTP/1.1" 200 -
