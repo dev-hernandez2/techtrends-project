@@ -3,8 +3,8 @@ FROM python:2.7
 EXPOSE 3111
 
 COPY . /app
-COPY requirements.txt /app
 WORKDIR /app
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 RUN python init_db.py
 
