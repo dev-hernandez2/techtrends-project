@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: techtrends-app
+    app: techtrends
   namespace: sandbox
   name: techtrends
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: techtrends-app
+      app: techtrends
   template:
     metadata:
       labels:
-        app: techtrends-app
+        app: techtrends
     spec:
       containers:
-        - name: techtrends
-          image: devhernandez2/techtrends:latest
+        - image: devhernandez2/techtrends:latest
+          name: techtrends
           ports:
             - containerPort: 3111
               protocol: TCP
