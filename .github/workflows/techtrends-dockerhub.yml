@@ -39,4 +39,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: devhernandez2/teachtrends:latest
+          tags: devhernandez2/techtrends:latest
