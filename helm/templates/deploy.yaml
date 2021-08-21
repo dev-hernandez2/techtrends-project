@@ -3,10 +3,10 @@ kind: Deployment
 metadata:
   labels:
     app: techtrends
-  namespace: sandbox
+  namespace: { { .Values.namespace.name } }
   name: techtrends
 spec:
-  replicas: 1
+  replicas:  {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: techtrends
@@ -16,27 +16,27 @@ spec:
         app: techtrends
     spec:
       containers:
-        - image: devhernandez2/techtrends:latest
+        - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           name: techtrends
           ports:
-            - containerPort: 3111
-              protocol: TCP
+            - containerPort: {{ .Values.containerPort }}
+              protocol: {{ .Values.service.protocol }}
           livenessProbe:
             initialDelaySeconds: 10
             periodSeconds: 5
             httpGet:
-              path: /healthz
+              path:  {{ .Values.livenessProbe.path }}
               port: 3111
           readinessProbe:
             initialDelaySeconds: 10
             periodSeconds: 5
             httpGet:
-              path: /healthz
+              path: {{ .Values.readinessProbe.path }}
               port: 3111
           resources:
             requests:
-              cpu: '250m'
-              memory: '64Mi'
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
             limits:
-              cpu: '500m'
-              memory: '128Mi'
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
