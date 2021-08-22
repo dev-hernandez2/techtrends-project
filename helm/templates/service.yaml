@@ -3,13 +3,13 @@ kind: Service
 metadata:
   labels:
     app: techtrends
-  namespace: { { .Values.namespace.name } }
+  namespace: {{ .Values.namespace.name }}
   name: techtrends
 spec:
   ports:
-    - port: { { .Values.service.port } }
-      protocol: { { .Values.service.protocol } }
-      targetPort: { { .Values.service.targetPort } }
+    - port: {{ .Values.service.port }}
+      protocol: {{ .Values.service.protocol }}
+      targetPort: {{ .Values.service.targetPort }}
   selector:
     app: techtrends
-  type: { { .Values.service.type } }
+  type: {{ .Values.service.type }}
