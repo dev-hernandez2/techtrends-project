@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   labels:
     app: techtrends
-  name: { { .Values.namespace.name } }
+  name: {{ .Values.namespace.name }}
