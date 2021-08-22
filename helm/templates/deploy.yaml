@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: techtrends
-  namespace: { { .Values.namespace.name } }
+    app: techtrends-app
+  namespace: {{ .Values.namespace.name }}
   name: techtrends
 spec:
-  replicas:  {{ .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: techtrends
@@ -16,27 +16,27 @@ spec:
         app: techtrends
     spec:
       containers:
-        - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          name: techtrends
-          ports:
-            - containerPort: {{ .Values.containerPort }}
-              protocol: {{ .Values.service.protocol }}
-          livenessProbe:
-            initialDelaySeconds: 10
-            periodSeconds: 5
-            httpGet:
-              path:  {{ .Values.livenessProbe.path }}
-              port: 3111
-          readinessProbe:
-            initialDelaySeconds: 10
-            periodSeconds: 5
-            httpGet:
-              path: {{ .Values.readinessProbe.path }}
-              port: 3111
-          resources:
-            requests:
-              cpu: {{ .Values.resources.requests.cpu }}
-              memory: {{ .Values.resources.requests.memory }}
-            limits:
-              cpu: {{ .Values.resources.limits.cpu }}
-              memory: {{ .Values.resources.limits.memory }}
+      - name: techtrends
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+          protocol: {{ .Values.service.protocol }}
+        livenessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          httpGet:
+            path: {{ .Values.livenessProbe.path }}
+            port: 3111
+        readinessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          httpGet:
+            path: {{ .Values.readinessProbe.path }}
+            port: 3111
+        resources:
+          requests:
+            memory: {{ .Values.resources.requests.memory }}
+            cpu: {{ .Values.resources.requests.cpu }}
+          limits:
+            memory: {{ .Values.resources.limits.memory }}
+            cpu: {{ .Values.resources.limits.cpu }}
