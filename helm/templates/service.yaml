@@ -7,7 +7,6 @@ metadata:
   name: techtrends
 spec:
   ports:
-    #learned from https://helm.sh/docs/chart_template_guide/values_files/
     - port: { { .Values.service.port } }
       targetPort: { { .Values.service.targetPort } }
       protocol: { { .Values.service.protocol } }
