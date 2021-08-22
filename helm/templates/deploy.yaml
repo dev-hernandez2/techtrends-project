@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: techtrends-app
+    app: techtrends
   namespace: {{ .Values.namespace.name }}
   name: techtrends
 spec:
