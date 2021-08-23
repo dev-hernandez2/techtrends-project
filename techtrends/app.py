@@ -8,10 +8,13 @@ from werkzeug.exceptions import abort
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
 
+connection_count = 0
 
 def get_db_connection():
+    global connection_count
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
+    connection_count = connection_count +1
     return connection
 
 # Function to get a post using its ID
@@ -38,7 +41,7 @@ def index():
     connection = get_db_connection()
     posts = connection.execute('SELECT * FROM posts').fetchall()
     connection.close()
-    app.logger.debug('Home page request retrieved successfull')
+    app.logger.info('Home page request retrieved successfull')
     return render_template('index.html', posts=posts)
 
 # Define how each individual article is rendered
@@ -112,7 +115,7 @@ def metrics():
     connection.close()
     response = app.response_class(
         response=json.dumps(
-            {"post_count": len(posts), "db_connection_count": 1}),
+            {"post_count": len(posts), "db_connection_count": connection_count}),
         status=200,
         mimetype='application/json'
     )
@@ -125,4 +128,4 @@ def metrics():
 # start the application on port 3111
 if __name__ == "__main__":
     logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
-    app.run(host='0.0.0.0', port='3111')
+    app.run(host='0.0.0.0', port='3111', debug=True)
