@@ -58,7 +58,7 @@ def post(post_id):
         return render_template('404.html'), 404
     else:
        
-        app.logger.info('Article "%s" retrieved!' % (post['title']))
+        app.logger.info('Article "%s" retrieved!', post['title'])
         return render_template('post.html', post=post)
 
 # Define the About Us page
@@ -88,7 +88,7 @@ def create():
             connection.close()
 
             
-            app.logger.info('A new article "%s" is created!' % (title))
+            app.logger.info('A new article "%s" is created!', title)
 
             return redirect(url_for('index'))
 
@@ -116,7 +116,10 @@ def metrics():
     connection.close()
     response = app.response_class(
         response=json.dumps(
-            {"post_count": len(posts), "db_connection_count": total_connections}),
+            {
+                "post_count": len(posts), 
+                "db_connection_count": total_connections
+            }),
         status=200,
         mimetype='application/json'
     )
@@ -128,5 +131,5 @@ def metrics():
 
 # start the application on port 3111
 if __name__ == "__main__":
-    logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG, stream=sys.stdout)
+    logging.basicConfig(format='[%(asctime)s] %(levelname)s: %(message)s', level=logging.DEBUG, handlers=[logging.StreamHandler(sys.stdout), logging.StreamHandler(sys.stderr)])
     app.run(host='0.0.0.0', port='3111')
