@@ -1,5 +1,6 @@
 import sqlite3
 import logging
+import sys
 
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
@@ -8,13 +9,13 @@ from werkzeug.exceptions import abort
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
 
-connection_count = 0
+total_connections = 0
 
 def get_db_connection():
-    global connection_count
+    global total_connections
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
-    connection_count = connection_count +1
+    total_connections = total_connections +1
     return connection
 
 # Function to get a post using its ID
@@ -115,7 +116,7 @@ def metrics():
     connection.close()
     response = app.response_class(
         response=json.dumps(
-            {"post_count": len(posts), "db_connection_count": connection_count}),
+            {"post_count": len(posts), "db_connection_count": total_connections}),
         status=200,
         mimetype='application/json'
     )
@@ -127,5 +128,5 @@ def metrics():
 
 # start the application on port 3111
 if __name__ == "__main__":
-    logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG)
-    app.run(host='0.0.0.0', port='3111', debug=True)
+    logging.basicConfig(format='%(asctime)s %(message)s', level=logging.DEBUG, stream=sys.stdout)
+    app.run(host='0.0.0.0', port='3111')
